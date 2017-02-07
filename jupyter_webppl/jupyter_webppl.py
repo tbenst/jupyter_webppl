@@ -14,10 +14,11 @@ class WebpplMagics(Magics):
     def __init__(self, **kwargs):
             super(WebpplMagics, self).__init__(**kwargs)
             print("initializing")
-            HTML("""
+            h = HTML("""
                 <meta charset="UTF-8">
                 <script src='http://cdn.webppl.org/webppl-v0.9.7.js'</script>
                 """)
+            display(h)
 
     @line_magic
     def lmagic(self, line):
