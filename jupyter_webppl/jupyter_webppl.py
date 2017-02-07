@@ -51,7 +51,7 @@ class WebpplMagics(Magics):
             result
             </script>
             """
-        return line, cell
+        display(h)
 
     @line_cell_magic
     def lcmagic(self, line, cell=None):
