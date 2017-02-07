@@ -25,8 +25,8 @@ class WebpplMagics(Magics):
     @cell_magic
     def webppl(self, line, cell):
         "my cell magic"
-        code = json.dump(cell)
-        store = json.dump(self.shell.user_ns['store'])
+        code = json.dumps(cell)
+        store = json.dumps(self.shell.user_ns['store'])
 
         h = """
             <script>
