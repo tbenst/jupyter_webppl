@@ -9,11 +9,17 @@ from IPython.core.magic import (Magics, magics_class, line_magic,
 @magics_class
 class WebpplMagics(Magics):
 
+    def __init__(self, **kwargs):
+            super(WebpplMagics, self).__init__(**kwargs)
+            print("initializing")
+            self.initialized = False
+
     @line_magic
     def lmagic(self, line):
         "my line magic"
         print("Full access to the main IPython object:", self.shell)
         print("Variables in the user namespace:", list(self.shell.user_ns.keys()))
+        print("Initialized", initialized)
         return line
 
     @cell_magic
