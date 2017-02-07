@@ -2,6 +2,7 @@
 # itself to be running already.  It only creates the magics subclass but
 # doesn't instantiate it yet.
 # from __future__ import print_function
+import json
 from IPython.core.magic import (Magics, magics_class, line_magic,
                                 cell_magic, line_cell_magic)
 from IPython.display import HTML, display
@@ -13,12 +14,6 @@ class WebpplMagics(Magics):
 
     def __init__(self, **kwargs):
             super(WebpplMagics, self).__init__(**kwargs)
-            print("initializing")
-            h = HTML("""
-                <meta charset="UTF-8">
-                <script src='http://cdn.webppl.org/webppl-v0.9.7.js'</script>
-                """)
-            display(h)
 
     @line_magic
     def lmagic(self, line):
@@ -28,8 +23,34 @@ class WebpplMagics(Magics):
         return line
 
     @cell_magic
-    def cmagic(self, line, cell):
+    def webppl(self, line, cell):
         "my cell magic"
+        code = json.dump(cell)
+        store = json.dump(self.shell.user_ns['store'])
+
+        h = """
+            <script>
+            requirejs.config({
+                paths: {
+                    webppl: "//cdn.webppl.org/webppl-v0.9.7.js"
+                }
+            });
+            require(['webppl'], function(webppl) {
+                window.webppl = webppl;
+            });
+            </script>
+
+            <script>
+            const code = JSON.parse('""" + code + """');
+            const initialStore = JSON.parse('""" + store + """');
+            var result;
+            webppl.run(code, function(s,x) {result = x},
+                {initialStore: initialStore});
+            let return = JSON.stringify(result)
+            IPython.kernel.Notebook.execute("result='"+return+"'")
+            result
+            </script>
+            """
         return line, cell
 
     @line_cell_magic
