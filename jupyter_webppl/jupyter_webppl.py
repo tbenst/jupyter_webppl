@@ -7,7 +7,7 @@ from IPython.core.magic import (Magics, magics_class, line_magic,
 
 # The class MUST call this class decorator at creation time
 @magics_class
-class MyMagics(Magics):
+class WebpplMagics(Magics):
 
     @line_magic
     def lmagic(self, line):
@@ -32,10 +32,10 @@ class MyMagics(Magics):
             return line, cell
 
 
-# In order to actually use these magics, you must register them with a
-# running IPython.  This code must be placed in a file that is loaded once
-# IPython is up and running:
-ip = get_ipython()
-# You can register the class itself without instantiating it.  IPython will
-# call the default constructor on it.
-ip.register_magics(MyMagics)
+def load_ipython_extension(ipython):
+    ip = ipython
+    # ip = get_ipython()
+    ip.register_magics(WebpplMagics)
+
+if __name__ == "__main__":
+    load_ipython_extension(get_ipython())
