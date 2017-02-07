@@ -1,9 +1,11 @@
 # This code can be put in any Python module, it does not require IPython
 # itself to be running already.  It only creates the magics subclass but
 # doesn't instantiate it yet.
-from __future__ import print_function
+# from __future__ import print_function
 from IPython.core.magic import (Magics, magics_class, line_magic,
                                 cell_magic, line_cell_magic)
+from IPython.display import HTML, display
+
 
 # The class MUST call this class decorator at creation time
 @magics_class
@@ -12,6 +14,12 @@ class WebpplMagics(Magics):
     def __init__(self, **kwargs):
             super(WebpplMagics, self).__init__(**kwargs)
             print("initializing")
+            display("""
+            $('head').append(`
+                <meta charset="UTF-8">
+                <script src='http://cdn.webppl.org/webppl-v0.9.7.js'</script>
+            `);
+                """)
 
     @line_magic
     def lmagic(self, line):
