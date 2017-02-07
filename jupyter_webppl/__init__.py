@@ -1,1 +1,1 @@
-from .magics import *
+from .jupyter_webppl import *
