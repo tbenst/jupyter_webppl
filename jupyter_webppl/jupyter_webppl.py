@@ -32,7 +32,7 @@ class WebpplMagics(Magics):
             <script>
             requirejs.config({
                 paths: {
-                    webppl: "//cdn.webppl.org/webppl-v0.9.7.js"
+                    webppl: "//cdn.webppl.org/webppl-v0.9.7"
                 }
             });
             require(['webppl'], function(webppl) {
