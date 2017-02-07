@@ -8,4 +8,5 @@ setup(name='jupyter_webppl',
       author_email='code@tylerbenster.com',
       license='GPLv3',
       packages=['jupyter_webppl'],
-      zip_safe=False)
+      zip_safe=False
+)
